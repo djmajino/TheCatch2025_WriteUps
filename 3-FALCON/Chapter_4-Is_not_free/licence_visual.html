@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Licence System - Vizualizácia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .step {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            border-left: 5px solid #667eea;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .step h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .code-box {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        
+        .highlight {
+            color: #50fa7b;
+            font-weight: bold;
+        }
+        
+        .hex-data {
+            color: #ff79c6;
+        }
+        
+        .result-box {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .result-box h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        
+        .result-box .flag {
+            font-family: 'Courier New', monospace;
+            font-size: 1.8em;
+            background: rgba(255,255,255,0.2);
+            padding: 15px 30px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .info-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-top: 3px solid #667eea;
+        }
+        
+        .info-card h4 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+        
+        .arrow {
+            text-align: center;
+            color: #667eea;
+            font-size: 2em;
+            margin: 10px 0;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .warning strong {
+            color: #856404;
+        }
+        
+        footer {
+            background: #2d2d2d;
+            color: #888;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔐 Arduino AVR Licence System</h1>
+            <p>Reverse Engineering & Cryptographic Analysis</p>
+        </header>
+        
+        <div class="content">
+            <h2>🎯 Dešifrovací Proces</h2>
+            
+            <div class="flow-diagram">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Validator String (0x0100)</h3>
+                    <div class="code-box">
+<span class="hex-data">54 68 72 65 65 4c 69 74 74 6c 65 42 69 72 64 73</span>
+↓ licence2() - Hex to ASCII
+<span class="highlight">"ThreeLittleBirds"</span>
+                    </div>
+                    <p>Referencia na pieseň od Bob Marleyho "Three Little Birds" 🎵</p>
+                </div>
+                
+                <div class="arrow">⬇</div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>RC4 Key Scheduling (licence3)</h3>
+                    <div class="code-box">
+S-box[256] = {0, 1, 2, ..., 255}  <span style="color: #6272a4;">// Inicializácia</span>
+
+for i = 0 to 255:
+    j = (j + S[i] + key[i % key_len]) % 256
+    swap(S[i], S[j])  <span style="color: #6272a4;">// Premiešanie</span>
+
+<span class="highlight">→ S-box pripravený pre šifrovanie</span>
+                    </div>
+                </div>
+                
+                <div class="arrow">⬇</div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Encrypted Licence (0x0143)</h3>
+                    <div class="code-box">
+<span class="hex-data">5A 15 33 9D E0 BA 71 21 CB 05 6A 8A CA 36 B2 99</span>
+<span class="hex-data">0A FB 23 9A 17 C9 57 29 96</span>
+
+Dĺžka: <span class="highlight">25 bytov</span>
+                    </div>
+                </div>
+                
+                <div class="arrow">⬇</div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>RC4 Decryption (licence4)</h3>
+                    <div class="code-box">
+for each byte in encrypted_data:
+    i = (i + 1) % 256
+    j = (j + S[i]) % 256
+    swap(S[i], S[j])
+    K = S[(S[i] + S[j]) % 256]
+    <span class="highlight">decrypted_byte = encrypted_byte XOR K</span>
+                    </div>
+                </div>
+                
+                <div class="arrow">⬇</div>
+                
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h3>Decrypted Result</h3>
+                    <div class="code-box">
+Hex: <span class="hex-data">46 4C 41 47 7B 4B 66 63 50 2D 48 65 5A 51 2D 6C 75 4B 59 2D 6D 49 78 42 7D</span>
+ASCII: <span class="highlight">FLAG{KfcP-HeZQ-luKY-mIxB}</span>
+                    </div>
+                </div>
+                
+                <div class="arrow">⬇</div>
+                
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <h3>CRC-32 Verification (licence5)</h3>
+                    <div class="code-box">
+CRC-32 (IEEE 802.3): <span class="highlight">0xA6DBACC5</span>
+Status: <span style="color: #50fa7b;">✓ Valid</span>
+LCD Output: "Licence a6dbacc5"
+            </div>
+                </div>
+            </div>
+            
+            <div class="result-box">
+                <h2>🎉 Dešifrované Licenčné Číslo</h2>
+                <div class="flag">FLAG{KfcP-HeZQ-luKY-mIxB}</div>
+                <p style="margin-top: 20px; font-size: 1.1em;">
+                    CTF-štýl flag → Pravdepodobne vzdelávací/výzvový projekt
+                </p>
+            </div>
+            
+            <h2>📊 Technické Detaily</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🔑 Validator</h4>
+                    <p><strong>Text:</strong> ThreeLittleBirds</p>
+                    <p><strong>Dĺžka:</strong> 16 bytov</p>
+                    <p><strong>Adresa:</strong> 0x0100</p>
+                </div>
+                
+                <div class="info-card">
+                    <h4>🔐 Šifrovanie</h4>
+                    <p><strong>Algoritmus:</strong> RC4</p>
+                    <p><strong>Typ:</strong> Stream cipher</p>
+                    <p><strong>S-box:</strong> 256 bytov</p>
+                </div>
+                
+                <div class="info-card">
+                    <h4>✓ Verifikácia</h4>
+                    <p><strong>Typ:</strong> CRC-32</p>
+                    <p><strong>Štandard:</strong> IEEE 802.3</p>
+                    <p><strong>Hodnota:</strong> 0xA6DBACC5</p>
+                </div>
+                
+                <div class="info-card">
+                    <h4>📝 Licencia</h4>
+                    <p><strong>Formát:</strong> CTF Flag</p>
+                    <p><strong>Dĺžka:</strong> 25 znakov</p>
+                    <p><strong>Adresa:</strong> 0x0143</p>
+                </div>
+            </div>
+            
+            <div class="warning">
+                <strong>⚠️ Bezpečnostné Poznámky:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>RC4 je deprecated algoritmus (2015) - má známe slabiny</li>
+                    <li>Hardcoded kľúč je ľahko extrahovateľný z binárky</li>
+                    <li>Chýba online verifikácia - lokálne bypasovateľné</li>
+                    <li>Vhodné len pre hobby projekty a CTF výzvy</li>
+                    <li><strong>Pre produkciu použiť AES-128/256</strong></li>
+                </ul>
+            </div>
+            
+            <h2>🛠️ Použité Funkcie</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>licence1()</h4>
+                    <p>Hex digit → byte (0-15)</p>
+                </div>
+                
+                <div class="info-card">
+                    <h4>licence2()</h4>
+                    <p>Hex string → byte array</p>
+                </div>
+                
+                <div class="info-card">
+                    <h4>licence3()</h4>
+                    <p>RC4 Key Scheduling (KSA)</p>
+                </div>
+                
+                <div class="info-card">
+                    <h4>licence4()</h4>
+                    <p>RC4 PRGA (šifrovanie/dešifrovanie)</p>
+                </div>
+                
+                <div class="info-card">
+                    <h4>licence5()</h4>
+                    <p>CRC-32 checksum (IEEE 802.3)</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Reverse Engineering Analysis • Arduino AVR Firmware • 2025</p>
+            <p style="margin-top: 5px; font-size: 0.85em;">
+                Nástroje: Ghidra, Manual Decompilation, Cryptographic Analysis
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

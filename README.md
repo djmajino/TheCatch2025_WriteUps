@@ -1,2 +1,3 @@
-# TheCatch2025_WriteUps
-Write ups from the TheCatch2025 competition
+# The Catch 2025 - WriteUps
+
+Here you can find the solutions to all challenges from The Catch 2025. Enjoy
