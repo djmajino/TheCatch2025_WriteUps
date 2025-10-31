@@ -177,17 +177,23 @@ Nmap done: 1 IP address (1 host up) scanned in 5.78 seconds
 
 Je tu otvorený udp port 161. Odtrhol som ho pre zvýraznenie.
 
-> $ snmpwalk -v 2c -c public broker.powergrid.tcc
-> 
-> 
-> iso.3.6.1.2.1.1.1.0 = STRING: "MQTT broker for power grid sensors. Only ***<u>reader</u>*** has the rights to subscribe to a topic!"
-> iso.3.6.1.2.1.1.3.0 = Timeticks: (111704874) 12 days, 22\:17\:28.74
-> iso.3.6.1.2.1.1.5.0 = STRING: "Mosquitto"
-> iso.3.6.1.2.1.1.6.0 = STRING: "DC A, area 51"
-> iso.3.6.1.2.1.1.7.0 = INTEGER: 1
-> iso.3.6.1.2.1.1.7.0 = No more variables left in this MIB View (It is past the end of the MIB tree)
+```
+$ snmpwalk -v 2c -c public broker.powergrid.tcc
 
-Je to skutočne tak, meno používateľa by som mal známe hneď a pravdepodobne by som skúsil rovnaké heslo.
+
+iso.3.6.1.2.1.1.1.0 = STRING: "MQTT broker for power grid sensors. Only reader has the rights to subscribe to a topic!"
+iso.3.6.1.2.1.1.3.0 = Timeticks: (111704874) 12 days, 22\:17\:28.74
+iso.3.6.1.2.1.1.5.0 = STRING: "Mosquitto"
+iso.3.6.1.2.1.1.6.0 = STRING: "DC A, area 51"
+iso.3.6.1.2.1.1.7.0 = INTEGER: 1
+iso.3.6.1.2.1.1.7.0 = No more variables left in this MIB View (It is past the end of the MIB tree)
+
+```
+
+Je to skutočne tak, 
+`Only reader has the rights to subscribe to a topic!`
+
+Meno používateľa by som mal známe hneď a pravdepodobne by som skúsil rovnaké heslo.
 
 ## Vlajka
 
