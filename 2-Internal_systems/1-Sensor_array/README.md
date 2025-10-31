@@ -182,7 +182,7 @@ $ snmpwalk -v 2c -c public broker.powergrid.tcc
 
 
 iso.3.6.1.2.1.1.1.0 = STRING: "MQTT broker for power grid sensors. Only reader has the rights to subscribe to a topic!"
-iso.3.6.1.2.1.1.3.0 = Timeticks: (111704874) 12 days, 22\:17\:28.74
+iso.3.6.1.2.1.1.3.0 = Timeticks: (111704874) 12 days, 22:17:28.74
 iso.3.6.1.2.1.1.5.0 = STRING: "Mosquitto"
 iso.3.6.1.2.1.1.6.0 = STRING: "DC A, area 51"
 iso.3.6.1.2.1.1.7.0 = INTEGER: 1
