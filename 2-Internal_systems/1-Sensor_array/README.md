@@ -139,6 +139,56 @@ sensors/dev2 TEST{bvX2-B8k7-3b6H-MY8p}
 
 Vac mi netreba. Vlajka ma vlastný topic, stačí počkať max 4s a vlajka sa objaví.
 
+---------------------
+
+Po odoslaní write-upu autorom mi odpísali
+
+> U úlohy "Sensor array" by Vám pomohlo udělat ještě UDP scan, tam se  
+> skrývá nápověda, která by velmi zjednodušila až odstranila nutnost  
+> bruteforce.
+
+
+
+Vôbec mi to nenapadlo v čase riešenia, dodatočne som teda pozrel a skutočne.
+
+```
+$ sudo nmap -Pn -sU --top-ports 10 broker.powergrid.tcc
+Starting Nmap 7.93 ( https://nmap.org ) at 2025-10-31 19:15 CET
+Nmap scan report for broker.powergrid.tcc (10.99.25.50)
+Host is up (0.018s latency).
+Other addresses for broker.powergrid.tcc (not scanned): 2001:db8:7cc::25:50
+
+PORT     STATE  SERVICE
+53/udp   closed domain
+67/udp   closed dhcps
+123/udp  closed ntp
+135/udp  closed msrpc
+137/udp  closed netbios-ns
+138/udp  closed netbios-dgm
+
+   161/udp  open   snmp
+
+445/udp  closed microsoft-ds
+631/udp  closed ipp
+1434/udp closed ms-sql-m
+
+Nmap done: 1 IP address (1 host up) scanned in 5.78 seconds
+```
+
+Je tu otvorený udp port 161. Odtrhol som ho pre zvýraznenie.
+
+> $ snmpwalk -v 2c -c public broker.powergrid.tcc
+> 
+> 
+> iso.3.6.1.2.1.1.1.0 = STRING: "MQTT broker for power grid sensors. Only ***<u>reader</u>*** has the rights to subscribe to a topic!"
+> iso.3.6.1.2.1.1.3.0 = Timeticks: (111704874) 12 days, 22\:17\:28.74
+> iso.3.6.1.2.1.1.5.0 = STRING: "Mosquitto"
+> iso.3.6.1.2.1.1.6.0 = STRING: "DC A, area 51"
+> iso.3.6.1.2.1.1.7.0 = INTEGER: 1
+> iso.3.6.1.2.1.1.7.0 = No more variables left in this MIB View (It is past the end of the MIB tree)
+
+Je to skutočne tak, meno používateľa by som mal známe hneď a pravdepodobne by som skúsil rovnaké heslo.
+
 ## Vlajka
 
     FLAG{0hs0-SiJm-TO5B-46HD}
