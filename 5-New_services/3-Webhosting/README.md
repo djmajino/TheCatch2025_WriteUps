@@ -308,7 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </html>
 ```
 
-`shell_exec("/usr/bin/tac " . LOGINS . "| head -n " . escapeshellcmd(lines));`  tak cez `escapeshellcmd(lines)` asi neprejdem. Pozriem podľa `a href` iné súbory.
+`shell_exec("/usr/bin/tac " . LOGINS . "| head -n " . escapeshellcmd(lines));`  tak cez `escapeshellcmd(lines)` asi neprejdem. Pozriem podľa `require` alebo `require_once` iné súbory.
 `1000 /var/www/html/app/session.php`
 
 ```php
