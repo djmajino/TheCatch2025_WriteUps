@@ -616,7 +616,7 @@ Table: users
 +----+----------+-------------------------------------------------------+
 
 [22:37:32] [INFO] table 'myapp.users' dumped to CSV file '/home/kali/.local/share/sqlmap/output/10.99.25.100/dump/myapp/users.csv'
-[22:33:32] [INFO] fetched data logged to text files under '/home/kali/.local/share/sqlmap/output/10.99.25.100'
+[22:37:32] [INFO] fetched data logged to text files under '/home/kali/.local/share/sqlmap/output/10.99.25.100'
 [22:37:32] [WARNING] your sqlmap version is outdated
 
 [*] ending @ 22:37:32 /2025-10-26/
